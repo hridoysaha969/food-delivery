@@ -8,11 +8,15 @@ import classes from "@/styles/customerHeader.module.css";
 import { ShoppingCart, ArrowDropDown } from "@mui/icons-material";
 
 function CustomerHeader({ cartData, removeCart, removeCartData }) {
-  const userStorage =
-    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
-  const cartStorage =
-    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
-
+  let userStorage;
+  let cartStorage;
+  if (typeof window !== "undefined") {
+    userStorage =
+      localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+    cartStorage =
+      localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+  }
+  const [clientOnly, setClientOnly] = useState(false);
   const [user, setUser] = useState(userStorage ? userStorage : undefined);
   const [cartNumber, setCartNumber] = useState(cartStorage?.length);
   const [cartItem, setCartItem] = useState(cartStorage);
@@ -20,6 +24,8 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
   const router = useRouter();
 
   useEffect(() => {
+    setClientOnly(true);
+    setUser(userStorage ? userStorage : undefined);
     if (cartData) {
       if (cartNumber) {
         if (cartItem[0].resto_id !== cartData.resto_id) {
@@ -85,65 +91,65 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
             </div>
           </Link>
           <div className={classes.link__wrapper}>
-            <ul>
-              <li>
-                <Link href={cartItem ? "/cart" : "/"}>
-                  <span
-                    className={classes.cart__link}
-                    data-text={cartNumber ? cartNumber : 0}
-                  >
-                    <ShoppingCart />
-                  </span>
-                  {/* Cart({cartNumber ? cartNumber : 0}) */}
-                </Link>
-              </li>
-              {user ? (
-                <>
-                  <li>
-                    <button
-                      className={classes.nav__profile_btn}
-                      onClick={() => setShowMenu(!showMenu)}
+            {clientOnly ? (
+              <ul>
+                <li>
+                  <Link href={cartItem ? "/cart" : "/"}>
+                    <span
+                      className={classes.cart__link}
+                      data-text={cartNumber ? cartNumber : 0}
                     >
-                      <span className={classes.profile_avatar}>
-                        {user?.name.charAt(0)}
-                      </span>
-                      <span className={classes.profile__name}>
-                        {user?.name}
-                      </span>
-                      <ArrowDropDown />
-                    </button>
-                  </li>
-                  {showMenu && (
-                    <div className={classes.dropdown}>
-                      <ul>
-                        <li>
-                          <Link href="/">Home</Link>
-                        </li>
-                        <li>
-                          <Link href="/profile">My Profile</Link>
-                        </li>
-                        <li>
-                          <button
-                            onClick={logout}
-                            className={classes.logout__btn}
-                          >
-                            Logout
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
+                      <ShoppingCart />
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  {user ? (
+                    <>
+                      <button
+                        className={classes.nav__profile_btn}
+                        onClick={() => setShowMenu(!showMenu)}
+                      >
+                        <span className={classes.profile_avatar}>
+                          {user?.name.charAt(0)}
+                        </span>
+                        <span className={classes.profile__name}>
+                          {user?.name}
+                        </span>
+                        <ArrowDropDown />
+                      </button>
+
+                      {showMenu && (
+                        <div className={classes.dropdown}>
+                          <>
+                            <li>
+                              <Link href="/">Home</Link>
+                            </li>
+                            <li>
+                              <Link href="/profile">My Profile</Link>
+                            </li>
+                            <li>
+                              <button
+                                onClick={logout}
+                                className={classes.logout__btn}
+                              >
+                                Logout
+                              </button>
+                            </li>
+                          </>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/user-auth" className={classes.btn__link}>
+                        Login
+                      </Link>
+                    </>
                   )}
-                </>
-              ) : (
-                <>
-                  <li>
-                    <Link href="/user-auth" className={classes.btn__link}>
-                      Login
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
+                </li>
+              </ul>
+            ) : null}
           </div>
         </nav>
       </div>

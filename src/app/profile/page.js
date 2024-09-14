@@ -15,7 +15,6 @@ function Profile() {
     response = await response.json();
     if (response.success) {
       setMyOrders(response.result);
-      console.log(response.result);
     }
   };
   const truncateText = (text, maxLength) => {
