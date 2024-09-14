@@ -43,7 +43,7 @@ function Cart() {
         <div className={classes.cart__wrapper}>
           <table className={classes.cart__table}>
             <tbody>
-              {cartStorage && cartStorage.length > 0 ? (
+              {cartStorage && cartStorage?.length > 0 ? (
                 cartStorage.map((item, ind) => (
                   <tr key={ind}>
                     <td>
