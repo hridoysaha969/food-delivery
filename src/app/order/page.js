@@ -99,11 +99,11 @@ function Cart() {
           <div className={classes.billing__info}>
             <h3>Billing Information</h3>
             <div className={classes.information}>
-              <p>{userStorage.name}</p>
-              <p>{userStorage.email}</p>
-              <p>{userStorage.city}</p>
-              <p>{userStorage.address}</p>
-              <p>{userStorage.mobile}</p>
+              <p>{userStorage?.name}</p>
+              <p>{userStorage?.email}</p>
+              <p>{userStorage?.city}</p>
+              <p>{userStorage?.address}</p>
+              <p>{userStorage?.mobile}</p>
             </div>
           </div>
           <div className={classes.payment__info_wrap}>
