@@ -7,11 +7,17 @@ import { useRouter } from "next/navigation";
 import classes from "@/styles/cart.module.css";
 
 function Cart() {
-  const cartStorage =
-    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+  // const cartStorage =
+  //   localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
   // const [cartStorage, setCartStorage] = useState(
   //   JSON.parse(localStorage.getItem("cart"))
   // );
+
+  let cartStorage;
+  if (typeof window !== "undefined") {
+    cartStorage =
+      localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+  }
   const router = useRouter();
   const [total] = useState(() =>
     cartStorage.length == 1

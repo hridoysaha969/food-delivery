@@ -7,12 +7,14 @@ import classes from "@/styles/order.module.css";
 import Popup from "../_components/Popup";
 
 function Cart() {
-  const [userStorage, setUserStorage] = useState(
-    JSON.parse(localStorage.getItem("user"))
-  );
-  const [cartStorage, setCartStorage] = useState(
-    JSON.parse(localStorage.getItem("cart"))
-  );
+  let userStorage;
+  let cartStorage;
+  if (typeof window !== "undefined") {
+    userStorage =
+      localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+    cartStorage =
+      localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+  }
   const [removeCartData, setRemoveCartData] = useState(false);
   const [coupon, setCoupon] = useState("");
   const [isValid, setIsValid] = useState(false);
