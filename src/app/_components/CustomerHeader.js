@@ -8,20 +8,25 @@ import classes from "@/styles/customerHeader.module.css";
 import { ShoppingCart, ArrowDropDown } from "@mui/icons-material";
 
 function CustomerHeader({ cartData, removeCart, removeCartData }) {
-  let userStorage;
-  let cartStorage;
-  if (typeof window !== "undefined") {
-    userStorage =
-      localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
-    cartStorage =
-      localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
-  }
+  const [userStorage, setUserStorage] = useState([]);
+  const [cartStorage, setCartStorage] = useState([]);
   const [clientOnly, setClientOnly] = useState(false);
   const [user, setUser] = useState(userStorage ? userStorage : undefined);
   const [cartNumber, setCartNumber] = useState(cartStorage?.length);
   const [cartItem, setCartItem] = useState(cartStorage);
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUserStorage(
+        localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"))
+      );
+      setCartStorage(
+        localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"))
+      );
+    }
+  }, []);
 
   useEffect(() => {
     setClientOnly(true);
@@ -46,7 +51,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
         localStorage.setItem("cart", JSON.stringify([cartData]));
       }
     }
-  }, [cartData]);
+  }, [cartData, cartItem, cartNumber, userStorage]);
 
   useEffect(() => {
     if (removeCart) {
@@ -60,7 +65,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
         localStorage.removeItem("cart");
       }
     }
-  }, [removeCart]);
+  }, [removeCart, cartItem, cartNumber]);
 
   useEffect(() => {
     if (removeCartData) {
@@ -83,7 +88,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
             <Image src={logo} width={80} alt="Food Delivery" priority />
             <div className={classes.logo__text}>
               <h3>
-                HS's <span>Food</span>
+                {`HS's`} <span>Food</span>
               </h3>
               <h4>
                 <span>Court</span>
@@ -111,7 +116,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
                         onClick={() => setShowMenu(!showMenu)}
                       >
                         <span className={classes.profile_avatar}>
-                          {user?.name.charAt(0)}
+                          {user?.name?.charAt(0)}
                         </span>
                         <span className={classes.profile__name}>
                           {user?.name}
