@@ -15,8 +15,9 @@ function Cart() {
 
   let cartStorage;
   if (typeof window !== "undefined") {
-    cartStorage =
-      localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+    cartStorage = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
   }
   const router = useRouter();
   const [total] = useState(() =>
