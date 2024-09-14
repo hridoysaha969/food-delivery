@@ -1,0 +1,98 @@
+.cart__page_title {
+  margin: 1.5rem 0 2rem;
+  font-size: 1.25rem;
+  position: relative;
+}
+.cart__page_title::after {
+  content: "";
+  position: absolute;
+  bottom: -1.5rem;
+  left: 0;
+  width: 40px;
+  height: 5px;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+  background: var(--primary-color);
+  margin-bottom: 1rem;
+}
+.cart__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.cart__table {
+  width: 60%;
+  background: var(--pure-color);
+  border: none;
+  box-shadow: 1px 1px 8px rgba(140, 154, 167, 0.4);
+}
+.pricing__wrapper {
+  width: 40%;
+}
+.cart__table tbody tr {
+  border-bottom: 1px solid rgba(140, 154, 167, 0.8);
+  /* box-shadow: 1px 1px 5px rgba(140, 154, 167, 0.4); */
+}
+.cart__table tbody tr td {
+  padding: 1rem;
+}
+
+.cart__table tbody tr td img {
+  width: 80px;
+}
+.pricing__wrapper {
+  padding: 0.65rem 1rem;
+  /* border: 1px solid rgba(140, 154, 167, 0.8); */
+  box-shadow: 1px 1px 8px rgba(140, 154, 167, 0.4);
+  background: var(--pure-color);
+}
+.total__price_wrap p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+}
+.total__price_wrap p span:last-child {
+  font-weight: 600;
+}
+.btn__order_wrap {
+  margin-top: 1rem;
+}
+.btn__order {
+  background: var(--secondary-color);
+  border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+  padding: 0.65rem 1rem;
+  width: 100%;
+  color: var(--pure-color);
+  text-transform: uppercase;
+}
+@media screen and (max-width: 767px) {
+  .cart__wrapper {
+    flex-direction: column;
+  }
+  .cart__table,
+  .pricing__wrapper {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .cart__table tbody tr td {
+    padding: 0.75rem 0.45rem;
+  }
+  .cart__table tbody tr td img {
+    width: 50px;
+  }
+  .cart__table tr td h3,
+  .cart__table tr td h4 {
+    font-size: 0.85rem;
+  }
+}

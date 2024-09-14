@@ -1,0 +1,154 @@
+"use client";
+import Image from "next/image";
+import logo from "../../../public/logo.png";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import classes from "@/styles/customerHeader.module.css";
+import { ShoppingCart, ArrowDropDown } from "@mui/icons-material";
+
+function CustomerHeader({ cartData, removeCart, removeCartData }) {
+  const userStorage =
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  const cartStorage =
+    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+
+  const [user, setUser] = useState(userStorage ? userStorage : undefined);
+  const [cartNumber, setCartNumber] = useState(cartStorage?.length);
+  const [cartItem, setCartItem] = useState(cartStorage);
+  const [showMenu, setShowMenu] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (cartData) {
+      if (cartNumber) {
+        if (cartItem[0].resto_id !== cartData.resto_id) {
+          localStorage.removeItem("cart");
+          setCartNumber(1);
+          setCartItem([cartData]);
+          localStorage.setItem("cart", JSON.stringify([cartData]));
+        } else {
+          let localCart = cartItem;
+          localCart.push(JSON.parse(JSON.stringify(cartData)));
+          setCartNumber(cartNumber + 1);
+          setCartItem(localCart);
+          localStorage.setItem("cart", JSON.stringify(localCart));
+        }
+      } else {
+        setCartNumber(1);
+        setCartItem([cartData]);
+        localStorage.setItem("cart", JSON.stringify([cartData]));
+      }
+    }
+  }, [cartData]);
+
+  useEffect(() => {
+    if (removeCart) {
+      let localCartItem = cartItem.filter((item) => {
+        return item._id != removeCart;
+      });
+      setCartItem(localCartItem);
+      setCartNumber(cartNumber - 1);
+      localStorage.setItem("cart", JSON.stringify(localCartItem));
+      if (localCartItem.length == 0) {
+        localStorage.removeItem("cart");
+      }
+    }
+  }, [removeCart]);
+
+  useEffect(() => {
+    if (removeCartData) {
+      setCartItem([]);
+      setCartNumber(0);
+      localStorage.removeItem("cart");
+    }
+  }, [removeCartData]);
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    router.push("/user-auth");
+  };
+
+  return (
+    <header className={classes.header__wrapper}>
+      <div className="container">
+        <nav className={classes.navbar_wrapper}>
+          <Link href="/" className={classes.logo}>
+            <Image src={logo} width={80} alt="Food Delivery" priority />
+            <div className={classes.logo__text}>
+              <h3>
+                HS's <span>Food</span>
+              </h3>
+              <h4>
+                <span>Court</span>
+              </h4>
+            </div>
+          </Link>
+          <div className={classes.link__wrapper}>
+            <ul>
+              <li>
+                <Link href={cartItem ? "/cart" : "/"}>
+                  <span
+                    className={classes.cart__link}
+                    data-text={cartNumber ? cartNumber : 0}
+                  >
+                    <ShoppingCart />
+                  </span>
+                  {/* Cart({cartNumber ? cartNumber : 0}) */}
+                </Link>
+              </li>
+              {user ? (
+                <>
+                  <li>
+                    <button
+                      className={classes.nav__profile_btn}
+                      onClick={() => setShowMenu(!showMenu)}
+                    >
+                      <span className={classes.profile_avatar}>
+                        {user?.name.charAt(0)}
+                      </span>
+                      <span className={classes.profile__name}>
+                        {user?.name}
+                      </span>
+                      <ArrowDropDown />
+                    </button>
+                  </li>
+                  {showMenu && (
+                    <div className={classes.dropdown}>
+                      <ul>
+                        <li>
+                          <Link href="/">Home</Link>
+                        </li>
+                        <li>
+                          <Link href="/profile">My Profile</Link>
+                        </li>
+                        <li>
+                          <button
+                            onClick={logout}
+                            className={classes.logout__btn}
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link href="/user-auth" className={classes.btn__link}>
+                      Login
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+export default CustomerHeader;

@@ -1,0 +1,95 @@
+.restaurant__list_section {
+  margin: 1.25rem 0;
+}
+.restaurant__list_title {
+  text-align: center;
+  font-size: 1.25rem;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.restaurant__list_title::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  width: 50px;
+  height: 5px;
+  background: var(--primary-color);
+  margin-top: 0.35rem;
+}
+.restaurant__card_wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+.restaurant__card {
+  padding: 1rem 0.85rem;
+  border-radius: 0.85rem;
+  -webkit-border-radius: 0.85rem;
+  -moz-border-radius: 0.85rem;
+  -ms-border-radius: 0.85rem;
+  -o-border-radius: 0.85rem;
+  cursor: pointer;
+  background: var(--pure-color);
+  box-shadow: 1px 1px 8px rgba(140, 154, 167, 0.4);
+}
+/* .restaurant__card:nth-child(odd) {
+  background: var(--slider-color-1);
+}
+.restaurant__card:nth-child(even) {
+  background: var(--slider-color-2);
+} */
+.card__avatar_wrapper {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* border-bottom: 1px solid var(--secondary-color); */
+  padding-bottom: 0.5rem;
+}
+.card__avatar_wrapper span svg {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+.card__avatar_wrapper h4 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.details {
+  margin-top: 1.5rem;
+  padding: 0 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--secondary-color);
+}
+.btn__visit {
+  margin-top: 1.25rem;
+  background: var(--secondary-color);
+  text-transform: capitalize;
+  font-weight: 500;
+  color: var(--pure-color);
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .restaurant__card_wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 576px) {
+  .restaurant__card_wrapper {
+    grid-template-columns: auto;
+  }
+}

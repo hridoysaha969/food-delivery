@@ -1,0 +1,50 @@
+.update__section {
+  margin: 2rem 0;
+}
+.section__title {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.input__container {
+  width: 100%;
+  background: var(--pure-color);
+  box-shadow: 1px 1px 8px rgba(140, 154, 167, 0.4);
+  padding: 1rem 0.75rem;
+}
+.input__wrap {
+  padding: 0.65rem 1rem;
+  width: 100%;
+  border: 1px solid var(--primary-color);
+  margin-bottom: 1rem;
+  border-radius: 0.35rem;
+  -webkit-border-radius: 0.35rem;
+  -moz-border-radius: 0.35rem;
+  -ms-border-radius: 0.35rem;
+  -o-border-radius: 0.35rem;
+}
+.input__wrap input {
+  width: 100%;
+}
+.btn__wrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn__wrapper button {
+  padding: 0.75rem 1.2rem;
+  text-transform: capitalize;
+  border-radius: 0.4rem;
+  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  -ms-border-radius: 0.4rem;
+  -o-border-radius: 0.4rem;
+  color: var(--pure-color);
+  font-weight: 500;
+}
+.btn__wrapper button.btn__update {
+  background: var(--alt-color);
+}
+.btn__wrapper button.btn__cancel {
+  background: var(--dash-color);
+}

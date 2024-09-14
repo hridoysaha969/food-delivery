@@ -1,0 +1,15 @@
+.footer__section {
+  margin-top: 3rem;
+  padding: 1rem 0;
+  text-align: center;
+  border-top: 1px solid var(--secondary-color);
+}
+.footer__section p {
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+.footer__section p a {
+  font-size: 1rem;
+  color: var(--primary-color);
+  font-weight: 500;
+}

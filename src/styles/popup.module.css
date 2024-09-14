@@ -1,0 +1,19 @@
+.popup__wrapper {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 999;
+  background: var(--pure-color);
+  padding: 1rem 0.75rem;
+  padding-top: 0.4rem;
+  box-shadow: 1px 1px 8px rgba(140, 154, 167, 0.4);
+  border-bottom: 5px solid var(--alt-color);
+}
+.close__btn {
+  text-align: right;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.popup__wrapper.error {
+  border-bottom: 5px solid red;
+}
