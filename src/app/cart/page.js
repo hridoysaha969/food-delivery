@@ -7,18 +7,18 @@ import { useRouter } from "next/navigation";
 import classes from "@/styles/cart.module.css";
 
 function Cart() {
-  // const cartStorage =
-  //   localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+  const cartStorage =
+    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
   // const [cartStorage, setCartStorage] = useState(
   //   JSON.parse(localStorage.getItem("cart"))
   // );
 
-  let localCart;
-  if (typeof window !== "undefined") {
-    localCart =
-      localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
-  }
-  const [cartStorage, setCartStorage] = useState([]);
+  // let localCart;
+  // if (typeof window !== "undefined") {
+  //   localCart =
+  //     localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+  // }
+  // const [cartStorage, setCartStorage] = useState([]);
   const router = useRouter();
   const [total] = useState(() =>
     cartStorage.length == 1
@@ -27,11 +27,11 @@ function Cart() {
           return total + Number(item.price);
         }, 0)
   );
-  useEffect(() => {
-    if (localCart) {
-      setCartStorage(localCart);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localCart) {
+  //     setCartStorage(localCart);
+  //   }
+  // }, []);
   const handleOrder = () => {
     const isUser = JSON.parse(localStorage.getItem("user"));
     if (isUser) {

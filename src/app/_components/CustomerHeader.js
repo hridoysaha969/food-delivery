@@ -8,25 +8,17 @@ import classes from "@/styles/customerHeader.module.css";
 import { ShoppingCart, ArrowDropDown } from "@mui/icons-material";
 
 function CustomerHeader({ cartData, removeCart, removeCartData }) {
-  const [userStorage, setUserStorage] = useState([]);
-  const [cartStorage, setCartStorage] = useState([]);
+  const userStorage =
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  const cartStorage =
+    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+
   const [clientOnly, setClientOnly] = useState(false);
   const [user, setUser] = useState(userStorage ? userStorage : undefined);
   const [cartNumber, setCartNumber] = useState(cartStorage?.length);
   const [cartItem, setCartItem] = useState(cartStorage);
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setUserStorage(
-        localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"))
-      );
-      setCartStorage(
-        localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"))
-      );
-    }
-  }, []);
 
   useEffect(() => {
     setClientOnly(true);
@@ -51,7 +43,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
         localStorage.setItem("cart", JSON.stringify([cartData]));
       }
     }
-  }, [cartData, cartItem, cartNumber, userStorage]);
+  }, [cartData]);
 
   useEffect(() => {
     if (removeCart) {
@@ -65,7 +57,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
         localStorage.removeItem("cart");
       }
     }
-  }, [removeCart, cartItem, cartNumber]);
+  }, [removeCart]);
 
   useEffect(() => {
     if (removeCartData) {
