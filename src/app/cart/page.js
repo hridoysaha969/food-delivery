@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomerHeader from "../_components/CustomerHeader";
 import { SHIPPING_FEE, TAX } from "@/lib/constant";
 import { useRouter } from "next/navigation";
@@ -13,12 +13,12 @@ function Cart() {
   //   JSON.parse(localStorage.getItem("cart"))
   // );
 
-  let cartStorage;
+  let localCart;
   if (typeof window !== "undefined") {
-    cartStorage = localStorage.getItem("cart")
-      ? JSON.parse(localStorage.getItem("cart"))
-      : [];
+    localCart =
+      localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
   }
+  const [cartStorage, setCartStorage] = useState([]);
   const router = useRouter();
   const [total] = useState(() =>
     cartStorage.length == 1
@@ -27,6 +27,11 @@ function Cart() {
           return total + Number(item.price);
         }, 0)
   );
+  useEffect(() => {
+    if (localCart) {
+      setCartStorage(localCart);
+    }
+  });
   const handleOrder = () => {
     const isUser = JSON.parse(localStorage.getItem("user"));
     if (isUser) {
