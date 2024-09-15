@@ -7,31 +7,38 @@ import { useRouter } from "next/navigation";
 import classes from "@/styles/cart.module.css";
 
 function Cart() {
-  const cartStorage =
-    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
-  // const [cartStorage, setCartStorage] = useState(
-  //   JSON.parse(localStorage.getItem("cart"))
-  // );
-
-  // let localCart;
-  // if (typeof window !== "undefined") {
-  //   localCart =
-  //     localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
-  // }
-  // const [cartStorage, setCartStorage] = useState([]);
+  // const cartStorage =
+  //   localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+  const [cartStorage, setCartStorage] = useState([]);
   const router = useRouter();
-  const [total] = useState(() =>
-    cartStorage.length == 1
-      ? cartStorage[0].price
-      : cartStorage.reduce((total, item) => {
-          return total + Number(item.price);
-        }, 0)
-  );
-  // useEffect(() => {
-  //   if (localCart) {
-  //     setCartStorage(localCart);
-  //   }
-  // }, []);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("cart"));
+    if (data) {
+      setCartStorage(data);
+    } else {
+      router.push("/");
+    }
+  }, []);
+  useEffect(() => {
+    if (cartStorage.length == 1) {
+      setTotal(cartStorage[0].price);
+    } else {
+      const cost = cartStorage.reduce((total, item) => {
+        return total + Number(item.price);
+      }, 0);
+      setTotal(cost);
+    }
+    // setTotal(
+    //   cartStorage.length == 1
+    //     ? cartStorage[0].price
+    //     : cartStorage.reduce((total, item) => {
+    //         return total + Number(item.price);
+    //       }, 0)
+    // );
+  }, [cartStorage]);
+
   const handleOrder = () => {
     const isUser = JSON.parse(localStorage.getItem("user"));
     if (isUser) {

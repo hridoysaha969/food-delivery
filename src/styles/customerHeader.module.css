@@ -137,7 +137,9 @@
   border-bottom: 1px solid var(--primary-color);
   width: 100%;
 }
-.dropdown ul li a {
+.dropdown a {
+  display: block;
+  margin-bottom: 1rem;
   font-size: 0.85rem;
   color: var(--pure-color);
   margin-bottom: 0.5rem;
@@ -145,7 +147,7 @@
 }
 .dropdown .logout__btn {
   background: transparent;
-  text-transform: uppercase;
+  text-transform: capitalize;
   color: var(--pure-color);
   font-weight: 500;
   font-size: 0.85rem;

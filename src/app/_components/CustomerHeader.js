@@ -8,12 +8,15 @@ import classes from "@/styles/customerHeader.module.css";
 import { ShoppingCart, ArrowDropDown } from "@mui/icons-material";
 
 function CustomerHeader({ cartData, removeCart, removeCartData }) {
-  const userStorage =
-    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
-  const cartStorage =
-    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+  // const userStorage =
+  //   localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  // const cartStorage =
+  //   localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
 
-  const [clientOnly, setClientOnly] = useState(false);
+  const [userStorage, setUserStorage] = useState({});
+  const [cartStorage, setCartStorage] = useState([]);
+
+  // const [clientOnly, setClientOnly] = useState(false);
   const [user, setUser] = useState(userStorage ? userStorage : undefined);
   const [cartNumber, setCartNumber] = useState(cartStorage?.length);
   const [cartItem, setCartItem] = useState(cartStorage);
@@ -21,7 +24,18 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
   const router = useRouter();
 
   useEffect(() => {
-    setClientOnly(true);
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const data = JSON.parse(localStorage.getItem("cart"));
+    if (userData) {
+      setUserStorage(userData);
+    }
+    if (data) {
+      setCartStorage(data);
+    }
+  }, []);
+
+  useEffect(() => {
+    // setClientOnly(true);
     setUser(userStorage ? userStorage : undefined);
     if (cartData) {
       if (cartNumber) {
@@ -43,7 +57,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
         localStorage.setItem("cart", JSON.stringify([cartData]));
       }
     }
-  }, [cartData]);
+  }, [cartData, cartStorage]);
 
   useEffect(() => {
     if (removeCart) {
@@ -88,7 +102,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
             </div>
           </Link>
           <div className={classes.link__wrapper}>
-            {clientOnly ? (
+            {
               <ul>
                 <li>
                   <Link href={cartItem ? "/cart" : "/"}>
@@ -119,20 +133,14 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
                       {showMenu && (
                         <div className={classes.dropdown}>
                           <>
-                            <li>
-                              <Link href="/">Home</Link>
-                            </li>
-                            <li>
-                              <Link href="/profile">My Profile</Link>
-                            </li>
-                            <li>
-                              <button
-                                onClick={logout}
-                                className={classes.logout__btn}
-                              >
-                                Logout
-                              </button>
-                            </li>
+                            <Link href="/">Home</Link>
+                            <Link href="/profile">My Profile</Link>
+                            <button
+                              onClick={logout}
+                              className={classes.logout__btn}
+                            >
+                              Logout
+                            </button>
                           </>
                         </div>
                       )}
@@ -146,7 +154,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
                   )}
                 </li>
               </ul>
-            ) : null}
+            }
           </div>
         </nav>
       </div>

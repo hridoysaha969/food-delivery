@@ -11,22 +11,23 @@ import {
   Phone,
   Place,
 } from "@mui/icons-material";
-import Loading from "@/app/_components/Loading";
 
 function RestaurantName({ params, searchParams }) {
   const name = params.name;
   const [details, setDetails] = useState();
   const [foodItem, setFoodItem] = useState([]);
   const [cartData, setCartData] = useState();
-  const [cartStorage, setCartStorage] = useState(
-    JSON.parse(localStorage.getItem("cart"))
-  );
+  const [cartStorage, setCartStorage] = useState([]);
   const [cartIds, setCartIds] = useState(
     cartStorage ? () => cartStorage.map((item) => item._id) : []
   );
   const [removeCart, setRemoveCard] = useState();
 
   useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("cart"));
+    if (data) {
+      setCartStorage(data);
+    }
     getRestaurantDetails();
   }, []);
   const getRestaurantDetails = async () => {
