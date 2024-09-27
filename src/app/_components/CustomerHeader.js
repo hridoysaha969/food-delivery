@@ -13,7 +13,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
   // const cartStorage =
   //   localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
 
-  const [userStorage, setUserStorage] = useState({});
+  const [userStorage, setUserStorage] = useState();
   const [cartStorage, setCartStorage] = useState([]);
 
   // const [clientOnly, setClientOnly] = useState(false);

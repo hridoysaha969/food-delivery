@@ -30,13 +30,6 @@ function Cart() {
       }, 0);
       setTotal(cost);
     }
-    // setTotal(
-    //   cartStorage.length == 1
-    //     ? cartStorage[0].price
-    //     : cartStorage.reduce((total, item) => {
-    //         return total + Number(item.price);
-    //       }, 0)
-    // );
   }, [cartStorage]);
 
   const handleOrder = () => {
