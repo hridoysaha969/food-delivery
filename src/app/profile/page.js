@@ -4,7 +4,7 @@ import CustomerHeader from "../_components/CustomerHeader";
 import classes from "@/styles/profile.module.css";
 import { ShoppingBag } from "@mui/icons-material";
 
-function Profile() {
+export default function Profile() {
   const [myOrders, setMyOrders] = useState([]);
   useEffect(() => {
     getMyOrder();
@@ -64,5 +64,3 @@ function Profile() {
     </section>
   );
 }
-
-export default Profile;

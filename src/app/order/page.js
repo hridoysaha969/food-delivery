@@ -6,29 +6,27 @@ import { useRouter } from "next/navigation";
 import classes from "@/styles/order.module.css";
 import Popup from "../_components/Popup";
 
-function Cart() {
-  const [userStorage, setUserStorage] = useState();
-  const [cartStorage, setCartStorage] = useState([]);
+export default function Order() {
+  const userStorage =
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  const cartStorage =
+    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
   const [removeCartData, setRemoveCartData] = useState(false);
   const [coupon, setCoupon] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [method, setMethod] = useState("");
   const router = useRouter();
-  const [total, setTotal] = useState();
+  const [total, setTotal] = useState(() =>
+    cartStorage.length == 1
+      ? cartStorage[0].price
+      : cartStorage.reduce((total, item) => {
+          return total + Number(item.price);
+        }, 0)
+  );
   const [popup, setPopup] = useState({
     message: "",
     err: false,
   });
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user"));
-    const data = JSON.parse(localStorage.getItem("cart"));
-    if (data) {
-      setCartStorage(data);
-    }
-    if (userData) {
-      setUserStorage(userData);
-    }
-  }, []);
   useEffect(() => {
     if (cartStorage.length == 1) {
       setTotal(cartStorage[0].price);
@@ -217,5 +215,3 @@ function Cart() {
     </section>
   );
 }
-
-export default Cart;

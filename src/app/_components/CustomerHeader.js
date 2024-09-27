@@ -8,13 +8,13 @@ import classes from "@/styles/customerHeader.module.css";
 import { ShoppingCart, ArrowDropDown } from "@mui/icons-material";
 
 function CustomerHeader({ cartData, removeCart, removeCartData }) {
-  // const userStorage =
-  //   localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
-  // const cartStorage =
-  //   localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
+  const userStorage =
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  const cartStorage =
+    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
 
-  const [userStorage, setUserStorage] = useState();
-  const [cartStorage, setCartStorage] = useState([]);
+  // const [userStorage, setUserStorage] = useState();
+  // const [cartStorage, setCartStorage] = useState([]);
 
   // const [clientOnly, setClientOnly] = useState(false);
   const [user, setUser] = useState(userStorage ? userStorage : undefined);
@@ -23,16 +23,16 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user"));
-    const data = JSON.parse(localStorage.getItem("cart"));
-    if (userData) {
-      setUserStorage(userData);
-    }
-    if (data) {
-      setCartStorage(data);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const userData = JSON.parse(localStorage.getItem("user"));
+  //   const data = JSON.parse(localStorage.getItem("cart"));
+  //   if (userData) {
+  //     setUserStorage(userData);
+  //   }
+  //   if (data) {
+  //     setCartStorage(data);
+  //   }
+  // }, []);
 
   useEffect(() => {
     // setClientOnly(true);
@@ -57,7 +57,7 @@ function CustomerHeader({ cartData, removeCart, removeCartData }) {
         localStorage.setItem("cart", JSON.stringify([cartData]));
       }
     }
-  }, [cartData, cartStorage]);
+  }, [cartData]);
 
   useEffect(() => {
     if (removeCart) {

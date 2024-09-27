@@ -1,36 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CustomerHeader from "../_components/CustomerHeader";
 import { SHIPPING_FEE, TAX } from "@/lib/constant";
 import { useRouter } from "next/navigation";
 import classes from "@/styles/cart.module.css";
 
-function Cart() {
-  // const cartStorage =
-  //   localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
-  const [cartStorage, setCartStorage] = useState([]);
-  const router = useRouter();
-  const [total, setTotal] = useState(0);
+export default function page() {
+  const cartStorage =
+    localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("cart"));
-    if (data) {
-      setCartStorage(data);
-    } else {
-      router.push("/");
-    }
-  }, []);
-  useEffect(() => {
-    if (cartStorage.length == 1) {
-      setTotal(cartStorage[0].price);
-    } else {
-      const cost = cartStorage.reduce((total, item) => {
-        return total + Number(item.price);
-      }, 0);
-      setTotal(cost);
-    }
-  }, [cartStorage]);
+  const router = useRouter();
+  const [total, setTotal] = useState(() =>
+    cartStorage.length == 1
+      ? cartStorage[0].price
+      : cartStorage.reduce((total, item) => {
+          return total + Number(item.price);
+        }, 0)
+  );
 
   const handleOrder = () => {
     const isUser = JSON.parse(localStorage.getItem("user"));
@@ -122,5 +109,3 @@ function Cart() {
     </section>
   );
 }
-
-export default Cart;

@@ -6,7 +6,7 @@ import UserSignup from "../_components/UserSignup";
 import UserLogin from "../_components/UserLogin";
 import classes from "@/styles/restoSignup.module.css";
 
-function UserAuth({ searchParams }) {
+export default function UserAuth({ searchParams }) {
   const [isLogin, setIsLogin] = useState(true);
   return (
     <div>
@@ -30,5 +30,3 @@ function UserAuth({ searchParams }) {
     </div>
   );
 }
-
-export default UserAuth;
