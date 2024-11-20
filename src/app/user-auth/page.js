@@ -9,7 +9,7 @@ import classes from "@/styles/restoSignup.module.css";
 export default function UserAuth({ searchParams }) {
   const [isLogin, setIsLogin] = useState(true);
   return (
-    <div>
+    <div className={classes.auth__container}>
       <CustomerHeader />
       {isLogin ? (
         <UserLogin redirect={searchParams} />
